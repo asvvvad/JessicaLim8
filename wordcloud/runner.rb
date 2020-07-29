@@ -40,7 +40,7 @@ class Runner
       word = add_to_wordlist(word)
       generate_cloud
       message = "@#{@user} added '#{word}' to the Word Cloud"
-      octokit.add_label(label: CLOUDTYPES[-1])
+      octokit.add_label(label: CLOUDTYPES.last)
     else
       comment = "Sorry, '#{@command}' is not valid. Please try again. Currently we support wordcloud|add|<your-word> and wordcloud|shuffle."
       octokit.error_notification(reaction: 'confused', comment: comment)
@@ -105,7 +105,7 @@ class Runner
   end
 
   def to_markdown
-    ReadmeGenerator.new(octokit: octokit, label_list: CLOUDTYPES).generate
+    ReadmeGenerator.new(octokit: octokit).generate
   end
 
   def acknowledge_issue
